@@ -49,10 +49,13 @@ class MyHomePage extends StatelessWidget {
           SegmentedColumn(
             spacing: 4,
             children: [
-              SwitchTile(
-                title: Text('Some switch A'),
-                value: true,
-                onChanged: (_) {},
+              SegmentMargin(
+                margin: EdgeInsets.zero,
+                child: SwitchTile(
+                  title: Text('Some switch A'),
+                  value: true,
+                  onChanged: (_) {},
+                ),
               ),
               SwitchTile(
                 title: Text('Some switch B'),

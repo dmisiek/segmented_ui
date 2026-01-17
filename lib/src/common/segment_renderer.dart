@@ -28,8 +28,14 @@ class SegmentRenderer extends StatelessWidget {
       bottom: isLast ? theme.trailingCardRadius! : theme.cardRadius!,
     );
 
+    final segmentMargin = child is SegmentMargin
+        ? child as SegmentMargin
+        : null;
+
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: childEdgeMargin),
+      padding:
+          segmentMargin?.margin ??
+          EdgeInsets.symmetric(horizontal: childEdgeMargin),
       child: Material(
         borderRadius: borderRadius,
         color: theme.cardColor,
@@ -37,7 +43,7 @@ class SegmentRenderer extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: SegmentScope(
             borderRadius: borderRadius,
-            child: child,
+            child: segmentMargin?.child ?? child,
           ),
         ),
       ),
