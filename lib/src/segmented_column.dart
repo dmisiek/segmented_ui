@@ -20,17 +20,37 @@ class SegmentedColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = SegmentedUIThemeData.defaultOf(context);
+    if (this.theme != null) {
+      theme = theme.merge(this.theme!);
+    }
+
     return Column(
       crossAxisAlignment: crossAxisAlignment,
       spacing: spacing,
       mainAxisSize: MainAxisSize.min,
       children: children.mapIndexed((index, child) {
-        return Container(
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.symmetric(horizontal: crossAxisMargin),
-          padding: const EdgeInsets.all(16),
-          color: ColorScheme.of(context).surfaceContainerHigh,
-          child: child,
+        final isFirst = index == 0;
+        final isLast = index == children.length - 1;
+
+        final borderRadius = BorderRadius.vertical(
+          top: isFirst ? theme.trailingCardRadius! : theme.cardRadius!,
+          bottom: isLast ? theme.trailingCardRadius! : theme.cardRadius!,
+        );
+
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: crossAxisMargin),
+          child: Material(
+            borderRadius: borderRadius,
+            color: theme.cardColor,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: child,
+              ),
+            ),
+          ),
         );
       }).toList(),
     );
