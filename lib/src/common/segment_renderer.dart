@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:segmented_ui/segmented_ui.dart';
+import 'package:segmented_ui/src/common/segment_scope.dart';
+
+class SegmentRenderer extends StatelessWidget {
+  const SegmentRenderer({
+    required this.childEdgeMargin,
+    required this.childIndex,
+    required this.childrenCount,
+    required this.child,
+    required this.theme,
+    super.key,
+  });
+
+  final double childEdgeMargin;
+  final int childIndex;
+  final int childrenCount;
+  final Widget child;
+  final SegmentedUIThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    final isFirst = childIndex == 0;
+    final isLast = childIndex == childrenCount - 1;
+
+    final borderRadius = BorderRadius.vertical(
+      top: isFirst ? theme.trailingCardRadius! : theme.cardRadius!,
+      bottom: isLast ? theme.trailingCardRadius! : theme.cardRadius!,
+    );
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: childEdgeMargin),
+      child: Material(
+        borderRadius: borderRadius,
+        color: theme.cardColor,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: SegmentScope(
+            borderRadius: borderRadius,
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
+}
