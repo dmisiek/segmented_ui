@@ -45,8 +45,8 @@ class SegmentedColumn extends StatelessWidget {
             color: theme.cardColor,
             child: Align(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
+              child: SegmentScope(
+                borderRadius: borderRadius,
                 child: child,
               ),
             ),
@@ -54,5 +54,30 @@ class SegmentedColumn extends StatelessWidget {
         );
       }).toList(),
     );
+  }
+}
+
+class SegmentScope extends InheritedWidget {
+  const SegmentScope({
+    required super.child,
+    required this.borderRadius,
+    super.key,
+  });
+
+  final BorderRadius borderRadius;
+
+  static SegmentScope? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SegmentScope>();
+  }
+
+  static SegmentScope of(BuildContext context) {
+    final result = maybeOf(context);
+    assert(result != null, 'No SegmentScope found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(SegmentScope old) {
+    return borderRadius != old.borderRadius;
   }
 }
