@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:segmented_ui/segmented_ui.dart';
 
+class CardPadding extends StatelessWidget {
+  const CardPadding({
+    required this.child,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    super.key,
+  });
+
+  final EdgeInsets padding;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(padding: padding, child: child);
+  }
+}
+
 class SectionTitle extends StatelessWidget {
   const SectionTitle(this.text, {super.key});
 
@@ -34,8 +50,7 @@ class SwitchTile extends StatelessWidget {
     return SegmentBox(
       onPressed: isEnabled ? () => onChanged(!value) : null,
       color: isEnabled ? null : ColorScheme.of(context).surfaceContainerHighest,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: CardPadding(
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 200),
           opacity: isEnabled ? 1 : 0.5,

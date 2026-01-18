@@ -1,6 +1,6 @@
-import 'package:example/common.dart';
+import 'package:example/examples/column_example.dart';
+import 'package:example/examples/list_view_example.dart';
 import 'package:flutter/material.dart';
-import 'package:segmented_ui/segmented_ui.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,64 +28,20 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: ListView(
-        children: [
-          const SizedBox(height: 32),
-          SectionTitle('Section 1'),
-          SegmentedColumn(
-            children: [
-              Text('Some text ', style: TextTheme.of(context).titleMedium),
-              TextField(),
-              SwitchTile(
-                title: Text('Some switch'),
-                value: true,
-                onChanged: (_) {},
-              ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Column'),
+              Tab(text: 'ListView'),
             ],
           ),
-          const SizedBox(height: 32),
-          SectionTitle('Section 2'),
-          SegmentedColumn(
-            spacing: 4,
-            children: [
-              SegmentMargin(
-                margin: EdgeInsets.zero,
-                child: SwitchTile(
-                  title: Text('Some switch A'),
-                  value: true,
-                  onChanged: (_) {},
-                ),
-              ),
-              SwitchTile(
-                title: Text('Some switch B'),
-                value: true,
-                onChanged: (_) {},
-                isEnabled: false,
-              ),
-              SwitchTile(
-                title: Text('Some switch C'),
-                value: true,
-                onChanged: (_) {},
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: SegmentedButton(
-                  segments: [
-                    ButtonSegment(value: true, label: Text("Option 1")),
-                    ButtonSegment(value: false, label: Text("Option 2")),
-                  ],
-                  selected: {true},
-                  onSelectionChanged: (_) {},
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
+        body: TabBarView(children: [ColumnExample(), ListViewExample()]),
       ),
     );
   }
 }
-
-
