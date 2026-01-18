@@ -6,15 +6,25 @@ import 'package:segmented_ui/segmented_ui.dart';
 
 enum AvailableWidget { text, textField, toggle, segmented }
 
-class ListViewExample extends StatelessWidget {
+class ListViewExample extends StatefulWidget {
   const ListViewExample({super.key});
+
+  @override
+  State<ListViewExample> createState() => _ListViewExampleState();
+}
+
+class _ListViewExampleState extends State<ListViewExample> {
+  late final List<AvailableWidget> items = List.generate(
+    50,
+    (index) => AvailableWidget.values.random,
+  );
 
   @override
   Widget build(BuildContext context) {
     return SegmentedListView(
-      itemCount: 1000,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        return switch (AvailableWidget.values.random) {
+        return switch (items[index]) {
           AvailableWidget.text => CardPadding(
             child: Text('Some extra text $index'),
           ),

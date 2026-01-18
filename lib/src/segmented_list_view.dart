@@ -6,8 +6,8 @@ class SegmentedListView extends StatelessWidget {
   const SegmentedListView({
     required this.itemBuilder,
     required this.itemCount,
-    this.crossAxisMargin = 4.0,
-    this.spacing = 0.0,
+    this.crossAxisMargin = 12.0,
+    this.spacing = 4.0,
     this.theme,
     super.key,
   });
