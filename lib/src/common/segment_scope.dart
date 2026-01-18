@@ -4,10 +4,12 @@ class SegmentScope extends InheritedWidget {
   const SegmentScope({
     required super.child,
     required this.borderRadius,
+    required this.color,
     super.key,
   });
 
   final BorderRadius borderRadius;
+  final Color color;
 
   static SegmentScope? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<SegmentScope>();
@@ -21,6 +23,6 @@ class SegmentScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(SegmentScope old) {
-    return borderRadius != old.borderRadius;
+    return borderRadius != old.borderRadius || color != old.color;
   }
 }

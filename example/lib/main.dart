@@ -1,3 +1,4 @@
+import 'package:example/common.dart';
 import 'package:flutter/material.dart';
 import 'package:segmented_ui/segmented_ui.dart';
 
@@ -61,6 +62,7 @@ class MyHomePage extends StatelessWidget {
                 title: Text('Some switch B'),
                 value: true,
                 onChanged: (_) {},
+                isEnabled: false,
               ),
               SwitchTile(
                 title: Text('Some switch C'),
@@ -86,49 +88,4 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class SectionTitle extends StatelessWidget {
-  const SectionTitle(this.text, {super.key});
 
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Text(text, style: TextTheme.of(context).titleMedium),
-    );
-  }
-}
-
-class SwitchTile extends StatelessWidget {
-  const SwitchTile({
-    required this.title,
-    required this.value,
-    required this.onChanged,
-    super.key,
-  });
-
-  final Widget title;
-  final bool value;
-  final void Function(bool value) onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final br = SegmentScope.maybeOf(context)?.borderRadius;
-
-    return InkWell(
-      borderRadius: br,
-      onTap: () => onChanged(!value),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          spacing: 16,
-          children: [
-            Expanded(child: title),
-            Switch(value: value, onChanged: onChanged),
-          ],
-        ),
-      ),
-    );
-  }
-}
